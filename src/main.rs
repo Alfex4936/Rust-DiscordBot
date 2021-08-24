@@ -1,4 +1,4 @@
-use std::env; // 0.3.5
+use discordbot::DISCORD_TOKEN;
 
 use actix_web::{middleware, web, App, HttpServer};
 use serenity::{
@@ -26,9 +26,7 @@ impl EventHandler for Handler {
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    let token = env::var("DISCORD_TOKEN").expect("Expected a token in the environment");
-
-    let mut client = Client::builder(&token)
+    let mut client = Client::builder(DISCORD_TOKEN)
         .event_handler(Handler)
         .await
         .expect("Err creating client");
